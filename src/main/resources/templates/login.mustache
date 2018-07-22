@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Spring Security Example </title>
+    <title>Tablet Guides</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
+<div class="main">
+    <div class="logo">
+
+        <p>Tablet Guides</p>
+
+    </div>
+<div class="login-div">
 <form action="/login" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div><input class="field name" type="text" name="username" placeholder="Имя пользователя"/></div>
+    <div><input class="field pass" type="password" name="password" placeholder="Пароль"/></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <div><input class="button" type="submit" value="ВОЙТИ"/></div>
 </form>
+</div>
+</div>
 </body>
 </html>

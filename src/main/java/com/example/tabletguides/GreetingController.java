@@ -1,26 +1,21 @@
 package com.example.tabletguides;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GreetingController {
-
-    @GetMapping("/greeting")
-    public String greeting(Map<String, Object> model) {
-        return "greeting";
+    public GreetingController() {
     }
 
-    @GetMapping
+    @GetMapping({"/edit"})
+    public String greeting(Map<String, Object> model) {
+        return "edit";
+    }
+
+    @GetMapping({"/"})
     public String main(Map<String, Object> model) {
         return "main";
     }
-
-
-
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/edit.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="/script/url.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <p>Tablet Guides</p>
+    </div>
+    <div class="logout">
+        <form action="logout" method="post">
+            <input type="submit" value="ВЫХОД"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        </form>
+    </div>
+</header>
+<main>
+    <div class="main">
+        <form method="post" action="/edit">
+            <input type="text" class="head" placeholder="Заголовок">
+            <div class="buttons">
+                <input type="button" id="url" class="button-for-textarea url">
+                <input type="button" class="button-for-textarea bold">
+            </div>
+            <textarea class="main-text" id="main-text" placeholder="Основной текст"></textarea>
+        </form>
+    </div>
+</main>
+</body>
+</html>
