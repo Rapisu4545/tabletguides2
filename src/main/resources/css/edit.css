@@ -4,6 +4,11 @@ body{
     color: #212121;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px white; /* цвет вашего фона */
+    -webkit-text-fill-color: black; /* цвет текста */
+}
+
 header{
     margin: 0;
     padding: 0;
@@ -50,7 +55,7 @@ p{
     height: 40px;
     text-align: center;
     vertical-align: middle;
-    font-family: 'Roboto Thin', sans-serif;
+    font-family: "Roboto Thin", sans-serif;
     border-radius: 5px;
     font-size: 30px;
     background-color: #CDDC39;
@@ -164,6 +169,66 @@ textarea:focus{
 .url{
     background-image: url("../image/link.png");
     background-size: cover;
-    filter: invert(180deg);
 
+}
+
+.category{
+    width: 100%;
+    height: 50px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    outline: none;
+
+}
+
+
+
+.category-input{
+    width: 200px;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: white;
+    border-style: none;
+    border:1px solid #cccccc;
+    outline:none;
+    margin-right: 10px;
+    text-indent: 5px;
+    box-sizing: border-box;
+
+}
+
+.category-input:focus{
+    outline: 0;
+    outline-offset: 0;
+    border:2px solid #CDDC39;
+}
+
+.add-new-cat-button{
+    background-image: url("../image/add.png");
+    background-size: cover;
+}
+
+.new-cat-field{
+    width: 250px;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: white;
+    border-style: none;
+    border:1px solid #cccccc;
+    outline:none;
+    margin-right: 10px;
+    text-indent: 5px;
+    box-sizing: border-box;
+}
+
+.new-cat-field:focus{
+    outline: 0;
+    outline-offset: 0;
+    border:2px solid #CDDC39;
 }
