@@ -22,23 +22,22 @@
 </header>
 <main>
     <div class="main">
-        <div class="category category-add">
-            <form method="post" action="/addNewCategory">
-                <input type="text" class="new-cat-field" name="name" placeholder="Новая категория">
-                <input type="submit" class="button-for-textarea add-new-cat-button" value="">
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-            </form>
-        </div>
+        <div class="category">
+        <form method="post" action="/addNewCategory">
 
-
-        <form method="post" action="save">
-            <div class="category category-check">
                 <select class="category-input" name="category-input" id="category-input" placeholder="Категория">
                     {{#categories}}
                         <option class="option" value="{{name}}">{{name}}</option>
                     {{/categories}}
                 </select>
-            </div>
+                <input type="text" class="new-cat-field" name="name" placeholder="Новая категория">
+                <input type="submit" class="button-for-textarea add-new-cat-button" value="">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+
+        </form>
+        </div>
+        <form method="post" action="save">
+
             <input type="text" class="head" id="head" placeholder="Заголовок">
             <div class="buttons">
                 <input type="button" id="url" class="button-for-textarea url">
