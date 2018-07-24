@@ -76,13 +76,13 @@ p{
 
 .main{
     width: 1200px;
-    height: 1000px;
+    height: 100%;
     background-color: white;
     box-shadow:0 0 10px 0 #bcbcbc;
     border-radius: 5px;
     margin: auto;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     box-sizing: border-box;
     padding: 20px;
 }
@@ -171,6 +171,10 @@ textarea:focus{
     background-size: cover;
 
 }
+.bold{
+    background-image: url("../image/bold.png");
+    background-size: cover;
+}
 
 .category{
     height: 50px;
@@ -183,20 +187,20 @@ textarea:focus{
 }
 
 .category-check{
-    width: 250px;
+    width: 350px;
     float: left;
 }
 
 .category-add{
-    width: 350px;
-    margin-right: 550px;
+    width: 450px;
+    margin-right: 350px;
     float: right;
 }
 
 
 
 .category-input{
-    width: 250px;
+    width: 350px;
     height: 50px;
     vertical-align: middle;
     border-radius: 5px;
@@ -224,7 +228,7 @@ textarea:focus{
 
 .new-cat-field{
 
-    width: 250px;
+    width: 350px;
     height: 50px;
     vertical-align: middle;
     border-radius: 5px;
@@ -242,4 +246,57 @@ textarea:focus{
     outline: 0;
     outline-offset: 0;
     border:2px solid #CDDC39;
+}
+
+.save{
+    float: right;
+    width: 180px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Roboto Thin", sans-serif;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: #CDDC39;
+    border-style: none;
+    outline:none;
+    color:white;
+    transition-duration: 100ms;
+    box-shadow:0 0 5px 0 #bcbcbc;
+}
+
+.save:hover{
+    background-color: #AFB42B;
+}
+
+.save:active{
+    transform: scale(0.95);
+}
+
+.container-save{
+    margin-top: 30px;
+}
+
+.image-container{
+    background-color: transparent;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border:1px solid #cccccc;
+    align-self:center;
+    outline: none;
+    padding: 10px;
+}
+
+.head:hover{
+    outline: 0;
+    outline-offset: 0;
+    border:2px solid #CDDC39;
+}
+
+.file{
+    margin: 0;
 }

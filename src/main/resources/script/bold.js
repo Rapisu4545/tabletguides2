@@ -1,4 +1,4 @@
-function replaceSelectedTextUrl(elem, str){
+function replaceSelectedText(elem, str){
     elem.focus();
 
     if (document.selection){
@@ -24,11 +24,11 @@ function replaceSelectedTextUrl(elem, str){
 }
 
 //оборачиваем текст в нужные теги и т.д.
-function change_str(s){return "<a href=\""+s+"\">"+s+"</a>"}
+function change_strbold(s){return "<b>"+s+"</b>"}
 
 // по клику на кнопку, выделенный текст будет заменен на текст с тегами
-document.getElementById('url').onclick = function() {
-    replaceSelectedTextUrl(document.getElementById('main-text'), 'change_str');
+document.getElementById('bold').onclick = function() {
+    replaceSelectedText(document.getElementById('main-text'), 'change_strbold');
     var line = document.getElementById('main-text');
     line.focus();
     line.setSelectionRange(line.value.length,line.value.length);

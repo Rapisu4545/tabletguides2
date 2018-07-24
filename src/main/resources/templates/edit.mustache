@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="/css/edit.css">
     <link rel="stylesheet" href="/css/scrollbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
+
 </head>
 <body>
 <header>
@@ -22,28 +24,38 @@
 </header>
 <main>
     <div class="main">
-        <div class="category">
+        <div class="category category-add">
         <form method="post" action="/addNewCategory">
-
-                <select class="category-input" name="category-input" id="category-input" placeholder="Категория">
-                    {{#categories}}
-                        <option class="option" value="{{name}}">{{name}}</option>
-                    {{/categories}}
-                </select>
-                <input type="text" class="new-cat-field" name="name" placeholder="Новая категория">
+                <input type="text" class="new-cat-field" name="namecat" placeholder="Новая категория">
                 <input type="submit" class="button-for-textarea add-new-cat-button" value="">
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-
         </form>
         </div>
-        <form method="post" action="save">
-
-            <input type="text" class="head" id="head" placeholder="Заголовок">
+        <form method="post" action="/save" enctype="multipart/form-data">
+            <div class="category category-check">
+            <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория">
+                {{#categories}}
+                    <option class="option" value="{{name}}">{{name}}</option>
+                {{/categories}}
+            </select>
+            </div>
+            <input type="text" class="head" id="head" name="head" placeholder="Заголовок" required>
             <div class="buttons">
                 <input type="button" id="url" class="button-for-textarea url">
-                <input type="button" class="button-for-textarea bold">
+                <input type="button" id="bold" class="button-for-textarea bold">
             </div>
-            <textarea class="main-text" id="main-text" placeholder="Основной текст"></textarea>
+            <textarea class="main-text" id="main-text" name="maintext" placeholder="Основной текст" required></textarea>
+
+            <div class="image-container">
+            <input class="file" type="file" name="file">
+                <div>
+
+                </div>
+            </div>
+
+            <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
+            <div class="buttons container-save"><input class="save" type="submit" value="Сохранить"/></div>
+
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
             <script>
                 var elements = document.querySelectorAll('.head, textarea');
