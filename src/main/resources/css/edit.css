@@ -300,3 +300,81 @@ textarea:focus{
 .file{
     margin: 0;
 }
+
+.image-container{
+    padding: 10px;
+
+}
+
+.image-container:hover{
+    border:2px solid #CDDC39;
+
+}
+.loadfiles{
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.viewfiles{
+    display: flex;
+    flex-wrap:wrap;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+
+
+}
+.fileelement{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 547px;
+    height: 368px;
+    margin: 10px;
+    background-color: white;
+    overflow: hidden;
+    background-size: cover;
+    border:1px solid #cccccc;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.fileelement img{
+    max-width: 100%;
+    height: auto;
+    max-height:100%;
+
+}
+
+.fileelement:hover{
+    border:2px solid #CDDC39;
+}
+
+.imgbutton{
+    background-image: url("../image/add.png");
+    background-size: cover;
+    position: relative;
+    top:10px;
+    left: 10px;
+
+}
+
+.imgbutton:hover{
+
+    position: relative;
+    top:10px;
+    left: 10px;
+
+}
+
+.imgbutton:hover{
+    background-color: #AFB42B;
+}
+
+.imgbutton:active{
+    transform: scale(0.95);
+}

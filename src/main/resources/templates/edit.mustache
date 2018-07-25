@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
-
+    <script type="text/javascript" src="/script/files.js" defer></script>
+    <script type="text/javascript" src="/script/savetext.js" defer></script>
+    <script type="text/javascript" src="/script/jquery.js" defer></script>
 </head>
 <body>
 <header>
@@ -47,32 +49,18 @@
             <textarea class="main-text" id="main-text" name="maintext" placeholder="Основной текст" required></textarea>
 
             <div class="image-container">
-            <input class="file" type="file" name="file">
-                <div>
+                <div class="loadfiles">
+                    <input class="file" type="file" id="file" name="file" multiple>
+                </div>
+                <div class="viewfiles" id="viewfiles">
 
                 </div>
             </div>
 
             <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
             <div class="buttons container-save"><input class="save" type="submit" value="Сохранить"/></div>
-
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-            <script>
-                var elements = document.querySelectorAll('.head, textarea');
 
-                function checkValidity() {};
-
-                for (i=0; i<elements.length; i++) {
-                    (function(element) {
-                        var id = element.getAttribute('id');
-                        element.value = sessionStorage.getItem(id); // обязательно наличие у элементов id
-                        element.oninput = function() {
-                            sessionStorage.setItem(id, element.value);
-                            checkValidity();
-                        };
-                    })(elements[i]);
-                }
-            </script>
         </form>
     </div>
 </main>
