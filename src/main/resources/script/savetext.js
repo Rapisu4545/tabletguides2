@@ -1,4 +1,4 @@
-var elements = document.querySelectorAll('.head, textarea');
+var elements = document.querySelectorAll('.head, textarea, .category-input');
 
 function checkValidity() {};
 

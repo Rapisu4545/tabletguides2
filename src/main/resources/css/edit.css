@@ -87,6 +87,8 @@ p{
     padding: 20px;
 }
 
+
+
 .head{
     background-color: transparent;
     width: 100%;
@@ -97,7 +99,7 @@ p{
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    border:1px solid #cccccc;
+    border:2px solid #cccccc;
     align-self:center;
     outline: none;
 }
@@ -117,13 +119,13 @@ textarea{
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    border:1px solid #cccccc;
+    border:2px solid #cccccc;
     align-self:center;
     outline: none;
     padding: 10px;
 }
 
-textarea:focus{
+textarea:hover{
     outline: 0;
     outline-offset: 0;
     border:2px solid #CDDC39;
@@ -207,7 +209,7 @@ textarea:focus{
     font-size: 30px;
     background-color: white;
     border-style: none;
-    border:1px solid #cccccc;
+    border:2px solid #cccccc;
     outline:none;
     margin-right: 10px;
     text-indent: 5px;
@@ -235,7 +237,7 @@ textarea:focus{
     font-size: 30px;
     background-color: white;
     border-style: none;
-    border:1px solid #cccccc;
+    border:2px solid #cccccc;
     outline:none;
     margin-right: 10px;
     text-indent: 5px;
@@ -274,7 +276,7 @@ textarea:focus{
 }
 
 .container-save{
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .image-container{
@@ -285,7 +287,8 @@ textarea:focus{
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    border:1px solid #cccccc;
+    margin-top:50px;
+    border:2px solid #cccccc;
     align-self:center;
     outline: none;
     padding: 10px;
@@ -332,18 +335,33 @@ textarea:focus{
     align-items: center;
     justify-content: center;
     width: 547px;
-    height: 368px;
+    height: 378px;
     margin: 10px;
     background-color: white;
     overflow: hidden;
     background-size: cover;
-    border:1px solid #cccccc;
+    border:2px solid #cccccc;
     box-sizing: border-box;
     padding: 5px;
     border-radius: 5px;
 }
 
-.fileelement img{
+.imageelement{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 547px;
+    height: 308px;
+    margin: 0;
+    background-color: white;
+    overflow: hidden;
+    background-size: cover;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.imageelement img{
     max-width: 100%;
     height: auto;
     max-height:100%;
@@ -357,24 +375,19 @@ textarea:focus{
 .imgbutton{
     background-image: url("../image/add.png");
     background-size: cover;
-    position: relative;
-    top:10px;
-    left: 10px;
+    margin-top: 5px;
 
 }
-
-.imgbutton:hover{
-
-    position: relative;
-    top:10px;
-    left: 10px;
-
-}
-
 .imgbutton:hover{
     background-color: #AFB42B;
 }
 
 .imgbutton:active{
     transform: scale(0.95);
+}
+
+.logolink{
+    color: #CDDC39;
+    background: none;
+    text-decoration: none;
 }

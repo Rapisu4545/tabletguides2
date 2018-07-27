@@ -17,10 +17,13 @@ control.addEventListener("change", function(event) {
             var card = document.createElement('div');
             card.classList.add('fileelement');
             list.appendChild(card);
+            var imageelement = document.createElement('div');
+            imageelement.classList.add('imageelement');
+            card.appendChild(imageelement);
             var img = document.createElement('img');
             img.src = event.target.result;
             img.setAttribute('alt', 'image');
-            card.appendChild(img);
+            imageelement.appendChild(img);
             var imgbutton = document.createElement('input');
             imgbutton.type = 'button';
             imgbutton.classList.add('button-for-textarea');

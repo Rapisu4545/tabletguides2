@@ -8,14 +8,15 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
-    <script type="text/javascript" src="/script/files.js" defer></script>
     <script type="text/javascript" src="/script/savetext.js" defer></script>
     <script type="text/javascript" src="/script/jquery.js" defer></script>
+    <script type="text/javascript" src="/script/enter.js" defer></script>
+    <script type="text/javascript" src="/script/imagetotextarea.js" defer></script>
 </head>
 <body>
 <header>
     <div class="logo">
-        <p>Tablet Guides</p>
+        <p><a class="logolink" href="/">Tablet Guides</a></p>
     </div>
     <div class="logout">
         <form action="logout" method="post">
@@ -33,7 +34,7 @@
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         </form>
         </div>
-        <form method="post" action="/save" enctype="multipart/form-data">
+        <form method="post" action="/save">
             <div class="category category-check">
             <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория">
                 {{#categories}}
@@ -48,19 +49,36 @@
             </div>
             <textarea class="main-text" id="main-text" name="maintext" placeholder="Основной текст" required></textarea>
 
-            <div class="image-container">
-                <div class="loadfiles">
-                    <input class="file" type="file" id="file" name="file" multiple>
-                </div>
-                <div class="viewfiles" id="viewfiles">
 
-                </div>
-            </div>
 
             <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
-            <div class="buttons container-save"><input class="save" type="submit" value="Сохранить"/></div>
+            <div class="buttons container-save">
+                <input class="save" type="submit" value="Сохранить"/>
+            </div>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
 
+        </form>
+
+        <form method="post" action="/uploadfiles"  enctype="multipart/form-data">
+            <div class="image-container">
+                <div class="loadfiles">
+                    <input class="multifile" type="file" id="multifile" name="multifile" multiple>
+                </div>
+                <div class="viewfiles" id="viewfiles">
+                    {{#images}}
+                    <div class="fileelement">
+                        <div class="imageelement">
+                            <img src="/img/{{.}}">
+                        </div>
+                        <input type="button" onclick="addimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}">
+                    </div>
+                    {{/images}}
+                </div>
+            </div>
+            <div class="buttons container-save">
+                <input class="save" type="submit" value="Загрузить"/>
+            </div>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         </form>
     </div>
 </main>
