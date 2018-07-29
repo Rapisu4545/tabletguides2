@@ -6,40 +6,52 @@ import javax.persistence.*;
 public class Instruction {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String head;
 
     @Column(length = 10000)
     private String main;
     private String images;
+    private String noimages;
     private String tag;
-    private String category;
+
+
+    private Integer category;
 
     public Instruction(){
 
     }
 
-    public Instruction(String head, String main, String images, String tag, String category) {
+    public Instruction(String head, String main, String images, String noimages, String tag, Integer category) {
         this.head = head;
         this.main = main;
         this.images = images;
         this.tag = tag;
         this.category = category;
+        this.noimages = noimages;
     }
 
-    public String getCategory() {
+    public String getNoimages() {
+        return noimages;
+    }
+
+    public void setNoimages(String noimages) {
+        this.noimages = noimages;
+    }
+
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

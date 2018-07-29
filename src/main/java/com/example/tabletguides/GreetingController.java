@@ -33,14 +33,17 @@ public class GreetingController {
     @Value("filename")
     private static List<String> images = new ArrayList<>();
 
+    @Value("filename")
+    private static List<String> noimages = new ArrayList<>();
+
     public GreetingController() {
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/new")
     public String greeting(Map<String, Object> model) {
         Iterable<Category> categories = categoryRepo.findAll();
         model.put("categories", categories);
-        return "edit";
+        return "new";
     }
 
     @PostMapping("addNewCategory")
@@ -50,16 +53,35 @@ public class GreetingController {
         Iterable<Category> categories = categoryRepo.findAll();
         model.put("categories", categories);
 
-        return "edit";
+        return "new";
     }
 
     @PostMapping("save")
     public String save(@RequestParam String categoryinput, @RequestParam String head, @RequestParam String maintext, @RequestParam String tag,  Map<String, Object> model){
-        Instruction instruction = new Instruction(head, maintext,"null", tag, categoryinput);
+        String imagetodb ="";
+        String noimagetodb ="";
+        if(!(images.isEmpty())){
+            for (String s1:images){
+                imagetodb = imagetodb+s1+";";
+            }
+            imagetodb = imagetodb.substring(0, imagetodb.length() - 1);
+            images.clear();
+        }
+
+        if(!(noimages.isEmpty())){
+            for (String s1:noimages){
+                noimagetodb = noimagetodb+s1+";";
+            }
+            noimagetodb = noimagetodb.substring(0, noimagetodb.length() - 1);
+            noimages.clear();
+        }
+
+
+        Integer categoryid = categoryRepo.find(categoryinput);
+        Instruction instruction = new Instruction(head, maintext,imagetodb, noimagetodb, "<b>Теги: </b>"+tag.toLowerCase().replaceAll(" ",""), categoryid);
         instructionRepo.save(instruction);
         Iterable<Instruction> instructions = instructionRepo.findAll();
         model.put("instruction", instructions);
-        images.clear();
         return "main";
     }
 
@@ -68,49 +90,69 @@ public class GreetingController {
     @GetMapping("/")
     public String main(Map<String, Object> model) {
         Iterable<Instruction> instructions = instructionRepo.findAll();
+        images.clear();
+        noimages.clear();
 
         model.put("instruction", instructions);
         return "main";
     }
 
     @PostMapping("uploadfiles")
-    public String uploadfiles(@RequestParam(name="multifile", required=false) Object multifile,  Map<String, Object> model) throws IOException {
+    public String uploadfiles(@RequestParam(name="multifile", required=false, defaultValue = "null") Object multifile,  Map<String, Object> model) throws IOException {
         if (multifile!=null){
             if (multifile instanceof Iterable) {
-                File uploadDir = new File(uploadpath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
 
-                for (MultipartFile f : (Iterable<MultipartFile>) multifile) {
-                    String uuidFile = UUID.randomUUID().toString();
-                    String resultFilename = uuidFile + "." + f.getOriginalFilename();
-                    f.transferTo(new File(uploadpath + "/" + resultFilename));
-                    images.add(resultFilename);
-                }
+                    File uploadDir = new File(uploadpath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdir();
+                    }
+
+                    for (MultipartFile f : (Iterable<MultipartFile>) multifile) {
+                        String uuidFile = UUID.randomUUID().toString();
+                        String resultFilename = uuidFile + "." + f.getOriginalFilename();
+                        f.transferTo(new File(uploadpath + "/" + resultFilename));
+                        if ((f.getOriginalFilename().contains("png")) | (f.getOriginalFilename().contains("jpg")) | (f.getOriginalFilename().contains("jpeg"))) {
+                            images.add(resultFilename);
+                        } else {
+                            noimages.add(resultFilename);
+                        }
+
+                    }
+
             }
 
             else{
+                if(!(((MultipartFile) multifile).getOriginalFilename().isEmpty())) {
                     File uploadDir = new File(uploadpath);
-                    if(!uploadDir.exists()){
+                    if (!uploadDir.exists()) {
                         uploadDir.mkdir();
                     }
                     String uuidFile = UUID.randomUUID().toString();
-                    String resultFilename = uuidFile+"."+((MultipartFile)multifile).getOriginalFilename();
-                images.add(resultFilename);
-                ((MultipartFile)multifile).transferTo(new File(uploadpath+"/"+resultFilename));
+                    String resultFilename = uuidFile + "." + ((MultipartFile) multifile).getOriginalFilename();
+                    if ((((MultipartFile) multifile).getOriginalFilename().contains("png")) | (((MultipartFile) multifile).getOriginalFilename().contains("jpg")) | (((MultipartFile) multifile).getOriginalFilename().contains("jpeg"))) {
+                        images.add(resultFilename);
+                    } else {
+                        noimages.add(resultFilename);
+                    }
+                    ((MultipartFile) multifile).transferTo(new File(uploadpath + "/" + resultFilename));
+                }
             }
-
-            for(String s: images){
-                System.out.println(s);
-            }
-            System.out.println();
 
         }
         Iterable<Category> categories = categoryRepo.findAll();
         model.put("categories", categories);
         model.put("images", images);
+        model.put("noimage", noimages);
 
-        return "edit";
+        return "new";
+    }
+
+    @PostMapping("delete")
+    public String delete(@RequestParam String delete, Map<String, Object> model){
+        Long id = Long.parseLong(delete.replaceAll("delete", ""));
+        instructionRepo.deleteById(id);
+        Iterable<Instruction> instructions = instructionRepo.findAll();
+        model.put("instruction", instructions);
+        return "main";
     }
 }

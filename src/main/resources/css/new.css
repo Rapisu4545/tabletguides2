@@ -391,3 +391,23 @@ textarea:hover{
     background: none;
     text-decoration: none;
 }
+
+.noimage{
+    width: 100%;
+    box-sizing: border-box;
+
+
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+    display: flex;
+}
+
+li p{
+    margin-right: 20px;
+    margin-top: 5px;
+}

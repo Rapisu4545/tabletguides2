@@ -1,27 +1,60 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Tablet Guides</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
+    <script type="text/javascript" src="/script/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/script/popup_img.js"></script>
+    <script type="text/javascript" src="/script/div.js"></script>
+    <script type="text/javascript" src="/script/hightdiv.js"></script>
 </head>
-<body>
-
-Это main
-<br>
-<a href="/edit">Главная страница</a>
-
-<div>
+<body onload="init()">
+<header class="header">
+    <div class="logo">
+        <p><a class="logolink" href="/">Tablet Guides</a></p>
+    </div>
+    <div class="search-div">
+        <form action="search" method="post">
+            <input type="text" class="search" placeholder="Поиск по тегам">
+            <input type="submit" class="search-button" value=""/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        </form>
+        <a href="/new"><input class="save" type="button" value="СОЗДАТЬ"/></a>
+    </div>
+    <div class="logout">
+        <form action="logout" method="post">
+            <input type="submit" value="ВЫХОД"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        </form>
+    </div>
+</header>
+<main>
     {{#instruction}}
-        {{{category}}}
-        <br>
-        {{{head}}}
-        <br>
-        {{{main}}}
-        <br>
-        {{{tag}}}
-        <br>
+        <div class="item" name="item-{{{category}}}">
+            <div class="head-container">
+            <div class="head"  onclick="maxi1(this)">{{{head}}}</div>
+            <div class="buttons">
+                <div class="down"></div>
+                <form action="/edit" method="post">
+                    <input type="submit" class="button edit" name="edit{{{id}}}" value="" title="Редактировать">
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                </form>
+                <form action="/delete" method="post">
+                    <input type="submit" class="button delete" name="delete" value="delete{{{id}}}" title="Удалить" onclick="return confirm('Вы точно хотите удалить?')">
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                </form>
+            </div>
+            </div>
+            <div class="maintext">
+                {{{main}}}
+            </div>
+            <div class="tag">
+                {{{tag}}}
+            </div>
+        </div>
     {{/instruction}}
-</div>
-
+</main>
 </body>
 </html>
