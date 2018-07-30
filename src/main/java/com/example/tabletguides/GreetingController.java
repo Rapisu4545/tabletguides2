@@ -87,8 +87,12 @@ public class GreetingController {
     @GetMapping("/")
     public String main(Map<String, Object> model) {
         Iterable<Instruction> instructions = instructionRepo.findAllandSort();
-        images.clear();
-        noimages.clear();
+        if (images!=null||!(images.isEmpty())){
+            images.clear();
+        }
+        if (noimages!=null||!(noimages.isEmpty())){
+            noimages.clear();
+        }
 
         model.put("instruction", instructions);
         return "main";
@@ -155,6 +159,7 @@ public class GreetingController {
 
     @PostMapping("editing")
     public String edit(@RequestParam String edit, Map<String, Object> model){
+
         Long id = Long.parseLong(edit.replaceAll("edit", ""));
         Optional<Instruction> optional = instructionRepo.findById(id);
         Instruction instruction=null;
@@ -164,9 +169,18 @@ public class GreetingController {
         else {
             return "main";
         }
+        if (instruction.getImages()!=null||!(instruction.getImages().isEmpty())){
+            images = new ArrayList<String>(Arrays.asList(instruction.getImages().split(";")));
+        }
+        if (instruction.getNoimages()!=null||!(instruction.getNoimages().isEmpty())){
+            noimages = new ArrayList<String>(Arrays.asList(instruction.getNoimages().split(";")));
+        }
+
         Iterable<Category> categories = categoryRepo.findAll();
         model.put("categories", categories);
         model.put("instruction", instruction);
+        model.put("images", images);
+        model.put("noimage", noimages);
         return "editing";
     }
 

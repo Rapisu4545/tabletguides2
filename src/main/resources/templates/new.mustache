@@ -14,7 +14,7 @@
     <script type="text/javascript" src="/script/clearsession.js" defer></script>
     <script type="text/javascript" src="/script/imagetotextarea.js" defer></script>
 </head>
-<body onload="clear()">
+<body>
 <header>
     <div class="logo">
         <p><a class="logolink" href="/">Tablet Guides</a></p>
@@ -54,7 +54,7 @@
 
             <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
             <div class="buttons container-save">
-                <input class="save" type="submit" value="Создать"/>
+                <input class="save" type="submit" id="submit-save" value="Создать">
             </div>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
 

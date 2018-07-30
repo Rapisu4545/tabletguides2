@@ -413,3 +413,7 @@ li p{
     margin-right: 20px;
     margin-top: 5px;
 }
+
+.hiddenopt{
+    display: none;
+}
