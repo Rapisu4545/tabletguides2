@@ -2,10 +2,7 @@ package com.example.tabletguides;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import com.example.tabletguides.entity.Category;
 import com.example.tabletguides.entity.Instruction;
@@ -80,7 +77,7 @@ public class GreetingController {
         Integer categoryid = categoryRepo.find(categoryinput);
         Instruction instruction = new Instruction(head, maintext,imagetodb, noimagetodb, "<b>Теги: </b>"+tag.toLowerCase().replaceAll(" ",""), categoryid);
         instructionRepo.save(instruction);
-        Iterable<Instruction> instructions = instructionRepo.findAll();
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
         model.put("instruction", instructions);
         return "main";
     }
@@ -89,7 +86,7 @@ public class GreetingController {
 
     @GetMapping("/")
     public String main(Map<String, Object> model) {
-        Iterable<Instruction> instructions = instructionRepo.findAll();
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
         images.clear();
         noimages.clear();
 
@@ -151,8 +148,75 @@ public class GreetingController {
     public String delete(@RequestParam String delete, Map<String, Object> model){
         Long id = Long.parseLong(delete.replaceAll("delete", ""));
         instructionRepo.deleteById(id);
-        Iterable<Instruction> instructions = instructionRepo.findAll();
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
         model.put("instruction", instructions);
         return "main";
+    }
+
+    @PostMapping("editing")
+    public String edit(@RequestParam String edit, Map<String, Object> model){
+        Long id = Long.parseLong(edit.replaceAll("edit", ""));
+        Optional<Instruction> optional = instructionRepo.findById(id);
+        Instruction instruction=null;
+        if (optional.isPresent()){
+            instruction = optional.get();
+        }
+        else {
+            return "main";
+        }
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
+        model.put("instruction", instruction);
+        return "editing";
+    }
+
+    @PostMapping("uploadfilesfromedit")
+    public String uploadfilesfromedit(@RequestParam(name="multifile", required=false, defaultValue = "null") Object multifile,  Map<String, Object> model) throws IOException {
+        if (multifile!=null){
+            if (multifile instanceof Iterable) {
+
+                File uploadDir = new File(uploadpath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+
+                for (MultipartFile f : (Iterable<MultipartFile>) multifile) {
+                    String uuidFile = UUID.randomUUID().toString();
+                    String resultFilename = uuidFile + "." + f.getOriginalFilename();
+                    f.transferTo(new File(uploadpath + "/" + resultFilename));
+                    if ((f.getOriginalFilename().contains("png")) | (f.getOriginalFilename().contains("jpg")) | (f.getOriginalFilename().contains("jpeg"))) {
+                        images.add(resultFilename);
+                    } else {
+                        noimages.add(resultFilename);
+                    }
+
+                }
+
+            }
+
+            else{
+                if(!(((MultipartFile) multifile).getOriginalFilename().isEmpty())) {
+                    File uploadDir = new File(uploadpath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdir();
+                    }
+                    String uuidFile = UUID.randomUUID().toString();
+                    String resultFilename = uuidFile + "." + ((MultipartFile) multifile).getOriginalFilename();
+                    if ((((MultipartFile) multifile).getOriginalFilename().contains("png")) | (((MultipartFile) multifile).getOriginalFilename().contains("jpg")) | (((MultipartFile) multifile).getOriginalFilename().contains("jpeg"))) {
+                        images.add(resultFilename);
+                    } else {
+                        noimages.add(resultFilename);
+                    }
+                    ((MultipartFile) multifile).transferTo(new File(uploadpath + "/" + resultFilename));
+                }
+            }
+
+        }
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
+        model.put("images", images);
+        model.put("noimage", noimages);
+
+        return "editing";
     }
 }

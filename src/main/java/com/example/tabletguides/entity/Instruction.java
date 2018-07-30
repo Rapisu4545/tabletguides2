@@ -8,7 +8,6 @@ public class Instruction {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String head;
-
     @Column(length = 10000)
     private String main;
     private String images;

@@ -1,20 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Создание новой инструкции</title>
+    <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/css/new.css">
     <link rel="stylesheet" href="/css/scrollbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
-    <script type="text/javascript" src="/script/savetext.js" defer></script>
     <script type="text/javascript" src="/script/jquery.js" defer></script>
+    <script type="text/javascript" src="/script/savetext.js" defer></script>
     <script type="text/javascript" src="/script/enter.js" defer></script>
-    <script type="text/javascript" src="/script/clearsession.js" defer></script>
     <script type="text/javascript" src="/script/imagetotextarea.js" defer></script>
 </head>
-<body onload="clear()">
+<body>
 <header>
     <div class="logo">
         <p><a class="logolink" href="/">Tablet Guides</a></p>
@@ -35,15 +34,16 @@
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         </form>
         </div>
-        <form method="post" action="/save">
+        <form method="post" action="/edit">
             <div class="category category-check">
             <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория" required>
+                <option class="hiddenopt" name="cat{{{instruction.category}}}" hidden></option>
                 {{#categories}}
-                    <option class="option" value="{{name}}">{{name}}</option>
+                    <option class="option" name="cat{{id}}" value="{{name}}">{{name}}</option>
                 {{/categories}}
             </select>
             </div>
-            <input type="text" class="head" id="head" name="head" placeholder="Заголовок" required>
+            <input type="text" class="head" id="head" name="head" placeholder="Заголовок" value="{{{instruction.head}}}" required>
             <div class="buttons">
                 <input type="button" id="url" class="button-for-textarea url" title="Преобразовать выделенный текст в ссылку">
                 <input type="button" id="bold" class="button-for-textarea bold" title="Сделать выделенный текст жирным">
@@ -54,13 +54,13 @@
 
             <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
             <div class="buttons container-save">
-                <input class="save" type="submit" value="Создать"/>
+                <input class="save" type="submit" value="Измененить"/>
             </div>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
 
         </form>
 
-        <form method="post" action="/uploadfiles"  enctype="multipart/form-data">
+        <form method="post" action="/uploadfilesfromedit"  enctype="multipart/form-data">
             <div class="image-container">
                 <div class="loadfiles">
                     <input class="multifile" type="file" id="multifile" name="multifile" multiple>

@@ -405,6 +405,8 @@ ul{
 
 li{
     display: flex;
+    font-size: 20px;
+    align-items: center;
 }
 
 li p{

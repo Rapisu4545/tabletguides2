@@ -217,8 +217,12 @@ main{
     margin-bottom: 10px;
     height: 70px;
     overflow: hidden;
+    border: 2px solid white;
 
 
+}
+.item:hover{
+    border: 2px solid #CDDC39;
 }
 
 .button{
@@ -306,7 +310,7 @@ main{
 }
 
 .maintext img{
-    width:266px;
+    width:366px;
     margin: 10px;
 }
 
@@ -318,12 +322,13 @@ main{
     left:0;
     display:none;
     text-align:center;
+    z-index:10000;
 }
 
 .popup_bg {
     background:rgba(0,0,0,0.4);
     position:absolute;
-    z-index:1;
+    z-index:10001;
     height:100%;
     width:100%;
 }
@@ -332,8 +337,30 @@ main{
 .popup_img {
     position: relative;
     margin:0 auto;
-    z-index:2;
-    max-height:94%;
-    max-width:94%;
-    margin:1% 0 0 0;
+    z-index:10002;
+    max-height:95%;
+    max-width:95%;
+    margin:2% 0 0 0;
+}
+
+img ~ p{
+    width: 366px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.image-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 390px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 2px solid #212121;
+    overflow: hidden;
+}
+
+.image-div:hover{
+    border: 2px solid #CDDC39;
 }

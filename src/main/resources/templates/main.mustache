@@ -39,8 +39,8 @@
             <div class="head"  onclick="maxi1(this)">{{{head}}}</div>
             <div class="buttons">
                 <div class="down"></div>
-                <form action="/edit" method="post">
-                    <input type="submit" class="button edit" name="edit{{{id}}}" value="" title="Редактировать">
+                <form action="/editing" method="post">
+                    <input type="submit" class="button edit" name="edit" value="edit{{{id}}}" title="Редактировать">
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                 </form>
                 <form action="/delete" method="post">
