@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
     <script type="text/javascript" src="/script/jquery.js" defer></script>
-    <script type="text/javascript" src="/script/savetext.js" defer></script>
+    <script type="text/javascript" src="/script/savetext.js"></script>
     <script type="text/javascript" src="/script/enter.js" defer></script>
     <script type="text/javascript" src="/script/setcategory.js" defer></script>
     <script type="text/javascript" src="/script/clearsession.js" defer></script>
@@ -64,20 +64,24 @@
                 </div>
                 <div class="noimage">
                     <ul>
-                        {{#noimage}}
-                            <li><p>{{.}}</p> <input type="button" onclick="addnoimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}" title="Добавть файл в текстовое поле"></li>
-                        {{/noimage}}
+
+                            {{#noimage}}
+                                <li><p>{{.}}</p> <input type="button" onclick="addnoimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}" title="Добавть файл в текстовое поле"></li>
+                            {{/noimage}}
+
                     </ul>
                 </div>
                 <div class="viewfiles" id="viewfiles">
-                    {{#images}}
-                    <div class="fileelement">
-                        <div class="imageelement">
-                            <img src="/files/{{.}}">
-                        </div>
-                        <input type="button" onclick="addimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}">
-                    </div>
-                    {{/images}}
+
+                        {{#images}}
+                            <div class="fileelement">
+                                <div class="imageelement">
+                                    <img src="/files/{{.}}">
+                                </div>
+                                <input type="button" onclick="addimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}">
+                            </div>
+                        {{/images}}
+
                 </div>
             </div>
             <div class="buttons container-save">

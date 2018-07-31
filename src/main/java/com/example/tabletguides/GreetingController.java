@@ -57,7 +57,7 @@ public class GreetingController {
     public String save(@RequestParam String categoryinput, @RequestParam String head, @RequestParam String maintext, @RequestParam String tag,  Map<String, Object> model){
         String imagetodb ="";
         String noimagetodb ="";
-        if(!(images.isEmpty())){
+        if(images!=null&&!(images.isEmpty())){
             for (String s1:images){
                 imagetodb = imagetodb+s1+";";
             }
@@ -65,14 +65,20 @@ public class GreetingController {
             images.clear();
         }
 
-        if(!(noimages.isEmpty())){
+        if(!(noimages!=null&&noimages.isEmpty())){
             for (String s1:noimages){
                 noimagetodb = noimagetodb+s1+";";
             }
             noimagetodb = noimagetodb.substring(0, noimagetodb.length() - 1);
             noimages.clear();
         }
+        if (imagetodb==""){
+            imagetodb=null;
+        }
 
+        if (noimagetodb==""){
+            noimagetodb=null;
+        }
 
         Integer categoryid = categoryRepo.find(categoryinput);
         Instruction instruction = new Instruction(head, maintext,imagetodb, noimagetodb, "<b>Теги: </b>"+tag.toLowerCase().replaceAll(" ",""), categoryid);
@@ -181,10 +187,12 @@ public class GreetingController {
         else {
             return "main";
         }
-        if (instruction.getImages()!=null||!(instruction.getImages().isEmpty())){
+        System.out.println(instruction.getImages());
+        if (instruction.getImages()!=null){
             images = new ArrayList<String>(Arrays.asList(instruction.getImages().split(";")));
         }
-        if (instruction.getNoimages()!=null||!(instruction.getNoimages().isEmpty())){
+
+        if (instruction.getNoimages()!=null){
             noimages = new ArrayList<String>(Arrays.asList(instruction.getNoimages().split(";")));
         }
 
@@ -278,8 +286,8 @@ public class GreetingController {
     @PostMapping("saveedit")
     public String saveedit(@RequestParam String id, @RequestParam String categoryinput, @RequestParam String head, @RequestParam String maintext, @RequestParam String tag,  Map<String, Object> model) {
         Long instId = Long.parseLong(id.replaceAll("id",""));
-        String imagetodb = "";
-        String noimagetodb = "";
+        String imagetodb="";
+        String noimagetodb="";
         if (!(images.isEmpty())) {
             for (String s1 : images) {
                 imagetodb = imagetodb + s1 + ";";
@@ -294,6 +302,14 @@ public class GreetingController {
             }
             noimagetodb = noimagetodb.substring(0, noimagetodb.length() - 1);
             noimages.clear();
+        }
+
+        if (imagetodb==""){
+            imagetodb=null;
+        }
+
+        if (noimagetodb==""){
+            noimagetodb=null;
         }
 
         Optional<Instruction> optional = instructionRepo.findById(instId);

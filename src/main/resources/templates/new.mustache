@@ -38,6 +38,7 @@
         <form method="post" action="/save">
             <div class="category category-check">
             <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория" required>
+                <option value="" selected>
                 {{#categories}}
                     <option class="option" value="{{name}}">{{name}}</option>
                 {{/categories}}
@@ -67,12 +68,15 @@
                 </div>
                 <div class="noimage">
                     <ul>
-                        {{#noimage}}
-                            <li><p>{{.}}</p> <input type="button" onclick="addnoimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}" title="Добавть файл в текстовое поле"></li>
-                        {{/noimage}}
+
+                            {{#noimage}}
+                                <li><p>{{.}}</p> <input type="button" onclick="addnoimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}" title="Добавть файл в текстовое поле"></li>
+                            {{/noimage}}
+
                     </ul>
                 </div>
                 <div class="viewfiles" id="viewfiles">
+
                     {{#images}}
                     <div class="fileelement">
                         <div class="imageelement">
@@ -81,6 +85,7 @@
                         <input type="button" onclick="addimagetotextarea(this);" class="button-for-textarea imgbutton" name="{{.}}">
                     </div>
                     {{/images}}
+                    
                 </div>
             </div>
             <div class="buttons container-save">
