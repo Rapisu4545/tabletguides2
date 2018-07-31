@@ -3,3 +3,4 @@ document.getElementById('submit-save').onclick = function() {
     sessionStorage.clear();
     console.log(sessionStorage.getItem('main-text'));
 }
+

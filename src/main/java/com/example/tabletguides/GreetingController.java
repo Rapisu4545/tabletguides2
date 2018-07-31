@@ -82,7 +82,19 @@ public class GreetingController {
         return "main";
     }
 
+    @GetMapping("/save")
+    public String saveGet(Map<String, Object> model){
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        if (images!=null||!(images.isEmpty())){
+            images.clear();
+        }
+        if (noimages!=null||!(noimages.isEmpty())){
+            noimages.clear();
+        }
 
+        model.put("instruction", instructions);
+        return "main";
+        }
 
     @GetMapping("/")
     public String main(Map<String, Object> model) {
@@ -184,8 +196,22 @@ public class GreetingController {
         return "editing";
     }
 
+    @GetMapping("/editing")
+    public String editGet(Map<String, Object> model){
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        if (images!=null||!(images.isEmpty())){
+            images.clear();
+        }
+        if (noimages!=null||!(noimages.isEmpty())){
+            noimages.clear();
+        }
+
+        model.put("instruction", instructions);
+        return "main";
+    }
+
     @PostMapping("uploadfilesfromedit")
-    public String uploadfilesfromedit(@RequestParam(name="multifile", required=false, defaultValue = "null") Object multifile,  Map<String, Object> model) throws IOException {
+    public String uploadfilesfromedit(@RequestParam String id, @RequestParam(name="multifile", required=false, defaultValue = "null") Object multifile,  Map<String, Object> model) throws IOException {
         if (multifile!=null){
             if (multifile instanceof Iterable) {
 
@@ -226,11 +252,84 @@ public class GreetingController {
             }
 
         }
+
+        Long instId = Long.parseLong(id.replaceAll("id",""));
+
+        Optional<Instruction> optional = instructionRepo.findById(instId);
+
+        Instruction instruction=null;
+        if (optional.isPresent()){
+            instruction = optional.get();
+        }
+        else {
+            return "main";
+        }
+
+
         Iterable<Category> categories = categoryRepo.findAll();
+        model.put("instruction", instruction);
         model.put("categories", categories);
         model.put("images", images);
         model.put("noimage", noimages);
 
         return "editing";
     }
+
+    @PostMapping("saveedit")
+    public String saveedit(@RequestParam String id, @RequestParam String categoryinput, @RequestParam String head, @RequestParam String maintext, @RequestParam String tag,  Map<String, Object> model) {
+        Long instId = Long.parseLong(id.replaceAll("id",""));
+        String imagetodb = "";
+        String noimagetodb = "";
+        if (!(images.isEmpty())) {
+            for (String s1 : images) {
+                imagetodb = imagetodb + s1 + ";";
+            }
+            imagetodb = imagetodb.substring(0, imagetodb.length() - 1);
+            images.clear();
+        }
+
+        if (!(noimages.isEmpty())) {
+            for (String s1 : noimages) {
+                noimagetodb = noimagetodb + s1 + ";";
+            }
+            noimagetodb = noimagetodb.substring(0, noimagetodb.length() - 1);
+            noimages.clear();
+        }
+
+        Optional<Instruction> optional = instructionRepo.findById(instId);
+
+        Instruction instruction=null;
+        if (optional.isPresent()){
+            instruction = optional.get();
+        }
+        else {
+            return "main";
+        }
+        instruction.setHead(head);
+        instruction.setMain(maintext);
+        instruction.setCategory(categoryRepo.find(categoryinput));
+        instruction.setTag(tag);
+        instruction.setImages(imagetodb);
+        instruction.setNoimages(noimagetodb);
+        instructionRepo.save(instruction);
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        model.put("instruction", instructions);
+        return "main";
+    }
+
+    @GetMapping("/saveedit")
+    public String saveeditGet(Map<String, Object> model){
+        Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        if (images!=null||!(images.isEmpty())){
+            images.clear();
+        }
+        if (noimages!=null||!(noimages.isEmpty())){
+            noimages.clear();
+        }
+
+        model.put("instruction", instructions);
+        return "main";
+    }
 }
+
+

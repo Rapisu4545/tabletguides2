@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/script/popup_img.js"></script>
     <script type="text/javascript" src="/script/div.js"></script>
     <script type="text/javascript" src="/script/hightdiv.js"></script>
+    <script type="text/javascript" src="/script/clearsessionedit.js" defer></script>
 </head>
 <body onload="init()">
 <div class="header-main">
@@ -22,7 +23,7 @@
             <input type="submit" class="search-button" value=""/>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         </form>
-        <a href="/new"><input class="save" type="button" value="СОЗДАТЬ"/></a>
+        <a href="/new"><input class="save" id="new" type="button" value="СОЗДАТЬ"/></a>
     </div>
     <div class="logout">
         <form action="logout" method="post">
@@ -40,7 +41,7 @@
             <div class="buttons">
                 <div class="down"></div>
                 <form action="/editing" method="post">
-                    <input type="submit" class="button edit" name="edit" value="edit{{{id}}}" title="Редактировать">
+                    <input type="submit" id="edit-button" class="button edit" name="edit" value="edit{{{id}}}" title="Редактировать">
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                 </form>
                 <form action="/delete" method="post">

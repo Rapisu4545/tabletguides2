@@ -9,9 +9,10 @@
     <script type="text/javascript" src="/script/bold.js" defer></script>
     <script type="text/javascript" src="/script/url.js" defer></script>
     <script type="text/javascript" src="/script/jquery.js" defer></script>
-    <script type="text/javascript" src="/script/savetext.js"></script>
+    <script type="text/javascript" src="/script/savetext.js" defer></script>
     <script type="text/javascript" src="/script/enter.js" defer></script>
     <script type="text/javascript" src="/script/setcategory.js" defer></script>
+    <script type="text/javascript" src="/script/clearsession.js" defer></script>
     <script type="text/javascript" src="/script/imagetotextarea.js" defer></script>
 </head>
 <body onload="setcategory()">
@@ -28,8 +29,8 @@
 </header>
 <main>
     <div class="main">
-
-        <form method="post" action="/save">
+        <form method="post" action="/saveedit">
+            <input type="hidden" name="id" value="id{{{instruction.id}}}">
             <div class="category category-check">
             <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория" required>
                 <option class="hiddenopt" name="cat{{{instruction.category}}}"></option>
@@ -49,13 +50,14 @@
 
             <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" value="{{{instruction.tag}}}" required>
             <div class="buttons container-save">
-                <input class="save" type="submit" value="Изменить"/>
+                <input class="save" type="submit" id="submit-save" value="Изменить"/>
             </div>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
 
         </form>
 
         <form method="post" action="/uploadfilesfromedit"  enctype="multipart/form-data">
+            <input type="hidden" name="id" value="id{{{instruction.id}}}">
             <div class="image-container">
                 <div class="loadfiles">
                     <input class="multifile" type="file" id="multifile" name="multifile" multiple>
