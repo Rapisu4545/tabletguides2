@@ -38,6 +38,7 @@
         <form method="post" action="/save">
             <div class="category category-check">
             <select class="category-input" name="categoryinput" id="category-input" placeholder="Категория" required>
+                <option class="option" value=""></option>
                 {{#categories}}
                     <option class="option" value="{{name}}">{{name}}</option>
                 {{/categories}}
@@ -52,7 +53,7 @@
 
 
 
-            <input type="text" class="head" id="tag" name="tag" placeholder="Теги через запятую" required>
+            <input type="text" class="head" id="tag" name="tag" placeholder="Теги через ;" required>
             <div class="buttons container-save">
                 <input class="save" type="submit" id="submit-save" value="Создать">
             </div>

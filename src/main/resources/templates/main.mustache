@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/script/popup_img.js"></script>
     <script type="text/javascript" src="/script/div.js"></script>
     <script type="text/javascript" src="/script/hightdiv.js"></script>
+    <script type="text/javascript" src="/script/filter.js" defer></script>
     <script type="text/javascript" src="/script/clearsessionedit.js" defer></script>
 </head>
 <body onload="init()">
@@ -19,7 +20,7 @@
     </div>
     <div class="search-div">
         <form action="search" method="post">
-            <input type="text" class="search" placeholder="Поиск по тегам">
+            <input type="text" class="search" name="search" placeholder="Поиск по тегам">
             <input type="submit" class="search-button" value=""/>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         </form>
@@ -32,6 +33,14 @@
         </form>
     </div>
 </header>
+</div>
+<div class="catlist">
+    <form>
+    {{#categories}}
+        <input type="radio" class="radio" name="radio" id="radio-{{id}}" onclick="filter(this)"><label for="radio-{{id}}" class="label">{{name}}</label>
+    {{/categories}}
+        <input type="radio" class="radio" name="radio" id="radioall"  onclick="filter(this)" checked><label for="radioall" class="label">Все</label>
+    </form>
 </div>
 <main>
     {{#instruction}}

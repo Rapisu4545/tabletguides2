@@ -73,11 +73,21 @@ public class GreetingController {
             noimages.clear();
         }
 
+        if (imagetodb==""){
+            imagetodb=null;
+        }
 
+        if (noimagetodb==""){
+            noimagetodb=null;
+        }
+
+        String fullhead = categoryinput+": "+head;
         Integer categoryid = categoryRepo.find(categoryinput);
-        Instruction instruction = new Instruction(head, maintext,imagetodb, noimagetodb, "<b>Теги: </b>"+tag.toLowerCase().replaceAll(" ",""), categoryid);
+        Instruction instruction = new Instruction(fullhead, maintext,imagetodb, noimagetodb, "<b>Теги: </b>"+tag.toLowerCase(), categoryid);
         instructionRepo.save(instruction);
         Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
         model.put("instruction", instructions);
         return "main";
     }
@@ -99,13 +109,15 @@ public class GreetingController {
     @GetMapping("/")
     public String main(Map<String, Object> model) {
         Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+        Iterable<Category> categories = categoryRepo.findAll();
+
         if (images!=null||!(images.isEmpty())){
             images.clear();
         }
         if (noimages!=null||!(noimages.isEmpty())){
             noimages.clear();
         }
-
+        model.put("categories", categories);
         model.put("instruction", instructions);
         return "main";
     }
@@ -181,10 +193,10 @@ public class GreetingController {
         else {
             return "main";
         }
-        if (instruction.getImages()!=null||!(instruction.getImages().isEmpty())){
+        if (instruction.getImages()!=null){
             images = new ArrayList<String>(Arrays.asList(instruction.getImages().split(";")));
         }
-        if (instruction.getNoimages()!=null||!(instruction.getNoimages().isEmpty())){
+        if (instruction.getNoimages()!=null){
             noimages = new ArrayList<String>(Arrays.asList(instruction.getNoimages().split(";")));
         }
 
@@ -194,6 +206,7 @@ public class GreetingController {
         model.put("images", images);
         model.put("noimage", noimages);
         return "editing";
+
     }
 
     @GetMapping("/editing")
@@ -205,6 +218,8 @@ public class GreetingController {
         if (noimages!=null||!(noimages.isEmpty())){
             noimages.clear();
         }
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
 
         model.put("instruction", instructions);
         return "main";
@@ -296,6 +311,14 @@ public class GreetingController {
             noimages.clear();
         }
 
+        if (imagetodb==""){
+            imagetodb=null;
+        }
+
+        if (noimagetodb==""){
+            noimagetodb=null;
+        }
+
         Optional<Instruction> optional = instructionRepo.findById(instId);
 
         Instruction instruction=null;
@@ -314,6 +337,8 @@ public class GreetingController {
         instructionRepo.save(instruction);
         Iterable<Instruction> instructions = instructionRepo.findAllandSort();
         model.put("instruction", instructions);
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
         return "main";
     }
 
@@ -327,9 +352,46 @@ public class GreetingController {
             noimages.clear();
         }
 
+        Iterable<Category> categories = categoryRepo.findAll();
+        model.put("categories", categories);
         model.put("instruction", instructions);
         return "main";
     }
+
+    @PostMapping("search")
+    public String search(@RequestParam String search , Map<String, Object> model) {
+        System.out.println(search);
+        System.out.println();
+        if (search != null && !(search.isEmpty())) {
+            Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+            ArrayList<Instruction> searchList = new ArrayList<>();
+
+            for (Instruction inst : instructions) {
+                String[] tags = inst.getTag().replace("<b>Теги: </b>","").split(";");
+                for (String t : tags) {
+                    System.out.println("Тег:"+t);
+                    if (t.trim().equals(search)) {
+                        searchList.add(inst);
+                        break;
+                    }
+                }
+            }
+            Iterable<Category> categories = categoryRepo.findAll();
+            model.put("categories", categories);
+            model.put("instruction", searchList);
+            return "main";
+        }
+        else{
+            Iterable<Instruction> instructions = instructionRepo.findAllandSort();
+            Iterable<Category> categories = categoryRepo.findAll();
+            model.put("categories", categories);
+            model.put("instruction", instructions);
+            return "main";
+        }
+
+    }
+
+
 }
 
 
