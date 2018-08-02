@@ -1,5 +1,7 @@
 package com.example.tabletguides.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 
 @Entity
